@@ -12,25 +12,37 @@ document.addEventListener("DOMContentLoaded", function(){
 
 function validateForm(event){
   event.preventDefault();
-  const nameInput = document.getElementById("nameInput");
-
-  let validate = true;
-  let garbage = /\w{5,}/;
-  validate = garbage.test(nameInput.value.trim())
-
+ 
   const errorMessage = document.getElementById("nameError");
-  // errorMessage.innerHTML = "";
-  // if (!nameInput.value.trim()) {
-  //   errorMessage.innerText = "Please add a name";
-  //   validate = false;
-  // } else if (nameInput.value.length <5) {
-  //   errorMessage.innerText = "Name must be at least 5 characters";
-  //   validate = false;
-  // }
+  const emailInput = document.getElementById("emailInput");
+  const phoneInput = document.getElementById("poneNumber");
+
+
+  
+  const validateEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+  validate = validateEmail.test(emailInput.value.trim());
+
+  const validatePhone = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/
+  validate = validatePhone.test(phoneInput.value.trim());
 
   if (validate) {
     event.target.submit();
   } else {
     errorMessage.innerText = "Please add a name with at least 5 characters";
   }
+}
+
+function validateName(){
+  const nameInput = document.getElementById("nameInput");
+  let validate = true;
+  const validateName = /\w{5,}/;
+  validate = validateName.test(nameInput.value.trim());
+}
+
+function validateEmail(){
+
+}
+
+function validatePhone(){
+
 }
