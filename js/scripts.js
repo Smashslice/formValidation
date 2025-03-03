@@ -12,37 +12,64 @@ document.addEventListener("DOMContentLoaded", function(){
 
 function validateForm(event){
   event.preventDefault();
- 
-  const errorMessage = document.getElementById("nameError");
-  const emailInput = document.getElementById("emailInput");
-  const phoneInput = document.getElementById("poneNumber");
+  let nameValid = false;
+  let emailValid = false;
+  let phoneValid = false;
+  nameValid = validateName();
+  emailValid = validateEmail();
+  phoneValid = validatePhone();
 
-
-  
-  const validateEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-  validate = validateEmail.test(emailInput.value.trim());
-
-  const validatePhone = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/
-  validate = validatePhone.test(phoneInput.value.trim());
-
-  if (validate) {
+  if (nameValid && emailValid && phoneValid){
     event.target.submit();
-  } else {
-    errorMessage.innerText = "Please add a name with at least 5 characters";
   }
 }
 
 function validateName(){
+  const errorMessage = document.getElementById("nameError");
+
   const nameInput = document.getElementById("nameInput");
+
   let validate = true;
   const validateName = /\w{5,}/;
+
   validate = validateName.test(nameInput.value.trim());
+
+  if (validate) {
+    return true;
+  } else {
+    errorMessage.innerText = "Please add a name with at least 5 characters";
+    return false;
+  }
 }
 
 function validateEmail(){
+  const errorMessage = document.getElementById("nameError");
 
+  const emailInput = document.getElementById("emailInput");
+
+  const validateEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+  validate = validateEmail.test(emailInput.value.trim());
+
+  if (validate) {
+    return true;
+  } else {
+    errorMessage.innerText = "Email invalid, please check format and try again.";
+    return false;
+  }
 }
 
 function validatePhone(){
+  const errorMessage = document.getElementById("nameError");
 
+  const phoneInput = document.getElementById("phoneNumber");
+
+  const validatePhone = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/
+  validate = validatePhone.test(phoneInput.value);
+
+  if (validate) {
+    return true;
+  } else {
+    errorMessage.innerText = "Phone number invalid, please check format and try again.";
+    return false;
+  }
 }
