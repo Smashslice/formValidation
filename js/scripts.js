@@ -1,26 +1,24 @@
 document.addEventListener("DOMContentLoaded", function(){
-  const button = document.getElementById("clickMe");
-  // let myDog = "Stitch";
-
-  button.addEventListener("click",(event) => {
-    console.log(event.target);
-  });
-
   const form = document.getElementById("myForm");
   form.addEventListener("submit", validateForm);
 })
 
 function validateForm(event){
+  const errorMessage = document.getElementById("nameError");
   event.preventDefault();
   let nameValid = false;
   let emailValid = false;
   let phoneValid = false;
+  let boxChecked = false;
   nameValid = validateName();
   emailValid = validateEmail();
   phoneValid = validatePhone();
+  boxChecked = validateCheckBox();
 
-  if (nameValid && emailValid && phoneValid){
+  if (nameValid && emailValid && phoneValid && boxChecked){
     event.target.submit();
+  } else {
+    errorMessage.classList.remove("hide");
   }
 }
 
@@ -70,6 +68,22 @@ function validatePhone(){
     return true;
   } else {
     errorMessage.innerText = "Phone number invalid, please check format and try again.";
+    return false;
+  }
+}
+
+function validateCheckBox(){
+  const errorMessage = document.getElementById("nameError");
+
+  const checkBox = document.getElementById("checkBox");
+
+  let validate = true;
+  validate = checkBox.checked;
+
+  if (validate) {
+    return true;
+  } else {
+    errorMessage.innerText = "Please agree to the Terms and Conditions before continuining.";
     return false;
   }
 }
